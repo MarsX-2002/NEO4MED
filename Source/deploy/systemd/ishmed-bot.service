@@ -1,0 +1,32 @@
+[Unit]
+Description=IshMed — Telegram-бот для медиков (@ishmedbot, polling)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=exec
+User=azureuser
+WorkingDirectory=/opt/ezgumed
+EnvironmentFile=/opt/ezgumed/.env
+
+ExecStart=/opt/ezgumed/.venv/bin/python -m app.bot.main
+
+Restart=always
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/ezgumed
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ishmed-bot
+
+[Install]
+WantedBy=multi-user.target

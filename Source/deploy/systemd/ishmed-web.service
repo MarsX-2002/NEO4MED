@@ -1,0 +1,39 @@
+[Unit]
+Description=IshMed — кабинет клиники (uvicorn)
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=exec
+User=azureuser
+WorkingDirectory=/opt/ezgumed
+EnvironmentFile=/opt/ezgumed/.env
+
+# proxy-headers + forwarded-allow-ips: приложение стоит за nginx, и без этого
+# оно будет видеть все запросы как приходящие с 127.0.0.1 и считать схему http,
+# что сломает построение абсолютных ссылок и cookie с Secure.
+ExecStart=/opt/ezgumed/.venv/bin/uvicorn app.web.main:app \
+    --host 127.0.0.1 --port 8000 \
+    --proxy-headers --forwarded-allow-ips=127.0.0.1 \
+    --no-access-log
+
+Restart=always
+RestartSec=3
+
+# Базовое ограничение прав: приложению не нужен ни root, ни доступ к /home.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/ezgumed
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ishmed-web
+
+[Install]
+WantedBy=multi-user.target

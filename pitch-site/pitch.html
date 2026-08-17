@@ -1,0 +1,1076 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="IshMed — AI HR-помощник для клиник. Pitch deck проекта.">
+  <meta name="theme-color" content="#08162f">
+  <title>IshMed — Pitch deck</title>
+  <style>
+    :root {
+      --ink: #08162f;
+      --ink-2: #10264b;
+      --text: #303b52;
+      --muted: #697388;
+      --line: #e4e9f1;
+      --soft: #f6f8fc;
+      --white: #ffffff;
+      --violet: #673cff;
+      --blue: #1673ff;
+      --cyan: #14bcd0;
+      --green: #49d45e;
+      --amber: #ffba52;
+      --gradient: linear-gradient(115deg, var(--violet) 0%, var(--blue) 40%, var(--cyan) 70%, var(--green) 100%);
+      --shadow: 0 28px 80px rgba(29, 54, 103, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    html { background: #eef2f8; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #eef2f8;
+      font-family: Inter, Manrope, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    button, a { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    p { margin: 0; color: var(--text); line-height: 1.55; }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      min-height: 560px;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .deck::before {
+      content: "";
+      position: absolute;
+      z-index: 30;
+      top: 0;
+      left: 0;
+      width: var(--progress, 6.67%);
+      height: 4px;
+      background: var(--gradient);
+      transition: width 360ms ease;
+    }
+
+    .deck-nav {
+      position: absolute;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      min-height: 74px;
+      padding: 0 clamp(24px, 4vw, 72px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid rgba(228, 233, 241, 0.82);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(18px);
+    }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: .055em;
+    }
+
+    .wordmark span,
+    .gradient-text {
+      color: transparent;
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .deck-meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .deck-meta strong { color: var(--ink); }
+
+    .slides { position: absolute; inset: 0; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: clamp(104px, 10vh, 138px) clamp(32px, 6vw, 104px) clamp(92px, 10vh, 122px);
+      display: grid;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(34px);
+      transition: opacity 260ms ease, transform 360ms cubic-bezier(.2,.8,.2,1), visibility 0s linear 360ms;
+      overflow: auto;
+      scrollbar-width: none;
+    }
+
+    .slide::-webkit-scrollbar { display: none; }
+    .slide.is-active {
+      z-index: 2;
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      transition-delay: 0s;
+    }
+
+    .slide.is-before { transform: translateX(-34px); }
+    .slide.dark { color: var(--white); background: var(--ink); }
+    .slide.soft { background: var(--soft); }
+    .slide.dark p { color: rgba(255,255,255,.72); }
+
+    .slide::after {
+      content: attr(data-index);
+      position: absolute;
+      right: clamp(30px, 5vw, 80px);
+      bottom: 86px;
+      color: rgba(105, 115, 136, .13);
+      font-size: clamp(76px, 10vw, 150px);
+      font-weight: 900;
+      letter-spacing: -.07em;
+      pointer-events: none;
+    }
+
+    .slide.dark::after { color: rgba(255,255,255,.06); }
+
+    .scene {
+      position: relative;
+      z-index: 1;
+      width: min(1380px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::after {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: var(--gradient);
+    }
+
+    .dark .eyebrow { color: var(--cyan); }
+
+    h1, h2, h3 { margin: 0; }
+    h1, h2 { letter-spacing: -.055em; }
+    h1 {
+      max-width: 1050px;
+      margin-top: 28px;
+      font-size: clamp(54px, 7.3vw, 112px);
+      line-height: .94;
+    }
+
+    h2 {
+      max-width: 1100px;
+      margin-top: 24px;
+      font-size: clamp(42px, 5.2vw, 78px);
+      line-height: .98;
+    }
+
+    h3 { font-size: clamp(18px, 1.6vw, 25px); letter-spacing: -.025em; }
+    .lead {
+      max-width: 830px;
+      margin-top: 28px;
+      font-size: clamp(18px, 1.65vw, 25px);
+    }
+
+    .tagline {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .dark .tagline { color: rgba(255,255,255,.46); }
+
+    .language-picker {
+      position: relative;
+      z-index: 8;
+      width: max-content;
+      margin-top: 26px;
+    }
+
+    .language-toggle {
+      min-height: 48px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 10px 26px rgba(29,54,103,.09);
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .language-toggle:hover { border-color: #bdc8d8; }
+    .language-toggle:focus-visible,
+    .language-option:focus-visible { outline: 3px solid rgba(22,115,255,.23); outline-offset: 2px; }
+    .language-icon { color: var(--blue); font-size: 16px; }
+    .language-chevron { color: var(--muted); font-size: 12px; transition: transform 160ms ease; }
+    .language-picker.is-open .language-chevron { transform: rotate(180deg); }
+
+    .language-menu {
+      position: absolute;
+      z-index: 12;
+      left: 0;
+      top: calc(100% + 10px);
+      width: 220px;
+      padding: 8px;
+      display: grid;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 22px 55px rgba(29,54,103,.16);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-7px);
+      transition: opacity 150ms ease, transform 150ms ease, visibility 0s linear 150ms;
+    }
+
+    .language-picker.is-open .language-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
+    .language-option {
+      min-height: 44px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 0;
+      border-radius: 12px;
+      color: var(--text);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .language-option:hover,
+    .language-option.is-selected { color: var(--ink); background: var(--soft); }
+    .language-option strong { font-size: 13px; }
+    .language-option span { color: var(--muted); font-size: 10px; font-weight: 850; letter-spacing: .12em; }
+    .hero-layout, .split {
+      display: grid;
+      grid-template-columns: 1.06fr .94fr;
+      gap: clamp(42px, 7vw, 110px);
+      align-items: center;
+    }
+
+    .hero-visual, .product-window {
+      position: relative;
+      min-height: 470px;
+      border: 1px solid var(--line);
+      border-radius: 36px;
+      background:
+        linear-gradient(var(--white), var(--white)) padding-box,
+        var(--gradient) border-box;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-visual {
+      display: grid;
+      align-content: center;
+      padding: 44px;
+      background-image:
+        linear-gradient(rgba(22,115,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22,115,255,.05) 1px, transparent 1px);
+      background-size: 38px 38px;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -160px;
+      top: -170px;
+      border-radius: 50%;
+      background: var(--gradient);
+      opacity: .14;
+    }
+
+    .signal-card, .mini-card, .card, .lane, .stage, .metric, .integration-card {
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .signal-card {
+      position: relative;
+      padding: 24px;
+      border-radius: 24px;
+      box-shadow: 0 18px 45px rgba(29,54,103,.11);
+    }
+
+    .signal-card + .signal-card { margin: -5px 0 0 56px; }
+    .signal-label { color: var(--muted); font-size: 10px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .signal-title { margin-top: 12px; font-size: 23px; font-weight: 850; }
+    .signal-meta { margin-top: 9px; color: var(--muted); font-size: 13px; }
+    .score-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .score { font-size: 40px; font-weight: 900; }
+
+    .grid { display: grid; gap: 18px; margin-top: 40px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      min-height: 180px;
+      padding: 26px;
+      border-radius: 24px;
+    }
+
+    .card.dark-card {
+      color: var(--white);
+      border-color: rgba(255,255,255,.13);
+      background: rgba(255,255,255,.055);
+    }
+
+    .card p { margin-top: 14px; font-size: 14px; }
+    .dark-card p { color: rgba(255,255,255,.65); }
+    .card-index { color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
+    .dark-card .card-index { color: var(--cyan); }
+    .card h3 { margin-top: 42px; }
+
+    .market-table {
+      display: grid;
+      grid-template-columns: 1.05fr 1.1fr 1.35fr;
+      margin-top: 38px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .market-cell {
+      min-height: 72px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .market-cell:nth-child(3n) { border-right: 0; }
+    .market-cell:nth-last-child(-n+3) { border-bottom: 0; }
+    .market-cell.head {
+      min-height: 52px;
+      color: var(--muted);
+      background: var(--soft);
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .market-cell strong { color: var(--ink); }
+    .statement {
+      padding: clamp(34px, 5vw, 72px);
+      border-radius: 34px;
+      color: var(--white);
+      background: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .statement blockquote {
+      max-width: 1150px;
+      margin: 0;
+      font-size: clamp(34px, 4.7vw, 72px);
+      font-weight: 850;
+      line-height: 1.04;
+      letter-spacing: -.05em;
+    }
+
+    .statement p { margin-top: 28px; color: rgba(255,255,255,.62); font-size: 17px; }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      margin-top: 42px;
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--white);
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: -18px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--blue);
+      background: var(--white);
+      font-weight: 900;
+    }
+
+    .flow-step span { color: var(--blue); font-size: 11px; font-weight: 900; }
+    .flow-step strong { display: block; margin-top: 46px; font-size: 17px; }
+    .flow-step p { margin-top: 9px; font-size: 12px; line-height: 1.45; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 38px;
+    }
+
+    .metric {
+      min-height: 205px;
+      padding: 30px;
+      border-radius: 26px;
+    }
+
+    .metric strong { display: block; font-size: clamp(44px, 5vw, 72px); letter-spacing: -.05em; }
+    .metric span { display: block; max-width: 250px; margin-top: 16px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    .onboarding-board {
+      display: grid;
+      gap: 14px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .board-head { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .board-head strong { font-size: 20px; }
+    .pill { padding: 7px 11px; border-radius: 999px; color: #087b42; background: #e9faef; font-size: 10px; font-weight: 850; }
+    .track-row { display: grid; grid-template-columns: 70px 1fr auto; gap: 16px; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--line); }
+    .track-row:last-child { border-bottom: 0; }
+    .track-day { color: var(--blue); font-size: 11px; font-weight: 900; }
+    .track-title { font-weight: 760; }
+    .track-state { color: var(--muted); font-size: 11px; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 29px;
+      height: 2px;
+      background: var(--gradient);
+      opacity: .35;
+    }
+
+    .stage { position: relative; min-height: 260px; padding: 28px; border-radius: 25px; }
+    .stage-dot { position: relative; z-index: 1; width: 12px; height: 12px; margin-bottom: 58px; border: 4px solid var(--white); border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 2px var(--blue); }
+    .stage p { margin-top: 12px; font-size: 13px; }
+
+    .integration-map {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      gap: 22px;
+      align-items: center;
+      margin-top: 34px;
+    }
+
+    .integration-stack { display: grid; gap: 12px; }
+    .integration-card { padding: 17px 20px; border-radius: 18px; color: var(--text); font-size: 13px; font-weight: 750; }
+    .integration-core {
+      position: relative;
+      min-height: 340px;
+      padding: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 34px;
+      color: var(--white);
+      text-align: center;
+      background: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .integration-core::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 26px;
+    }
+
+    .integration-core strong { position: relative; font-size: 32px; }
+    .integration-core span { position: relative; display: block; margin-top: 12px; color: rgba(255,255,255,.62); font-size: 13px; line-height: 1.5; }
+
+    .flywheel {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 46px;
+      padding: 26px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 30px;
+      background: rgba(255,255,255,.045);
+    }
+
+    .flywheel-node { min-height: 150px; padding: 22px; border-radius: 20px; background: rgba(255,255,255,.065); }
+    .flywheel-node span { color: var(--cyan); font-size: 10px; font-weight: 900; letter-spacing: .12em; }
+    .flywheel-node strong { display: block; margin-top: 48px; font-size: 17px; }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .lane { min-height: 315px; padding: 24px; border-radius: 24px; }
+    .lane.current { color: var(--white); border-color: var(--ink); background: var(--ink); }
+    .lane-state { color: var(--blue); font-size: 10px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
+    .current .lane-state { color: var(--cyan); }
+    .lane h3 { margin-top: 66px; }
+    .lane p { margin-top: 14px; font-size: 12px; }
+    .current p { color: rgba(255,255,255,.64); }
+
+    .checklist { display: grid; gap: 14px; margin-top: 34px; }
+    .check {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 16px;
+      align-items: center;
+      min-height: 64px;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 680;
+    }
+
+    .check i { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; color: var(--white); background: var(--gradient); font-style: normal; font-weight: 900; }
+
+    .final-ask {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 50px;
+      align-items: end;
+      margin-top: 46px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,.14);
+    }
+
+    .final-ask p { max-width: 700px; }
+    .ask-badge { min-width: 220px; padding: 22px 28px; border-radius: 22px; color: var(--ink); background: var(--white); text-align: center; }
+    .ask-badge strong { display: block; font-size: 34px; }
+    .ask-badge span { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
+
+    .deck-controls {
+      position: absolute;
+      z-index: 20;
+      left: clamp(24px, 4vw, 72px);
+      right: clamp(24px, 4vw, 72px);
+      bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      pointer-events: none;
+    }
+
+    .control-hint { color: var(--muted); font-size: 10px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .control-buttons { display: flex; gap: 8px; pointer-events: auto; }
+    .control-button {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 8px 20px rgba(29,54,103,.09);
+      cursor: pointer;
+    }
+
+    .control-button:hover { border-color: #bec8d7; }
+    .control-button:focus-visible { outline: 3px solid rgba(22,115,255,.25); outline-offset: 2px; }
+    .control-button:disabled { opacity: .32; cursor: default; }
+    .dark-active .control-hint { color: rgba(255,255,255,.42); }
+
+    @media (max-width: 1100px) {
+      .hero-layout, .split { grid-template-columns: 1fr; gap: 30px; }
+      .hero-visual { display: none; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .flow { grid-template-columns: repeat(3, 1fr); }
+      .flow-step:nth-child(3)::after { display: none; }
+      .timeline, .roadmap { grid-template-columns: repeat(2, 1fr); }
+      .roadmap .lane:last-child { grid-column: span 2; }
+      .flywheel { grid-template-columns: repeat(3, 1fr); }
+      .integration-map { grid-template-columns: 1fr 1fr; }
+      .integration-core { grid-row: span 2; }
+    }
+
+    @media (max-width: 760px) {
+      .deck { min-height: 100dvh; }
+      .deck-nav { min-height: 66px; padding: 0 18px; }
+      .deck-meta span:first-child { display: none; }
+      .slide { padding: 88px 18px 82px; align-items: start; }
+      .slide::after { display: none; }
+      h1 { font-size: clamp(48px, 15vw, 68px); }
+      h2 { font-size: clamp(38px, 11vw, 54px); }
+      .lead { font-size: 17px; }
+      .grid-2, .grid-3, .grid-4, .metrics, .timeline, .roadmap, .flywheel { grid-template-columns: 1fr; }
+      .roadmap .lane:last-child { grid-column: auto; }
+      .card { min-height: auto; }
+      .card h3 { margin-top: 26px; }
+      .market-table { grid-template-columns: 1fr; }
+      .market-cell { min-height: auto; border-right: 0; }
+      .market-cell:nth-last-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .market-cell:last-child { border-bottom: 0; }
+      .market-cell.head { display: none; }
+      .flow { grid-template-columns: 1fr; }
+      .flow-step { min-height: auto; }
+      .flow-step strong { margin-top: 28px; }
+      .flow-step::after { display: none !important; }
+      .integration-map { grid-template-columns: 1fr; }
+      .integration-core { min-height: 240px; grid-row: auto; }
+      .timeline::before { display: none; }
+      .stage { min-height: auto; }
+      .stage-dot { margin-bottom: 30px; }
+      .final-ask { grid-template-columns: 1fr; align-items: start; }
+      .ask-badge { min-width: 0; }
+      .control-hint { display: none; }
+      .deck-controls { left: 18px; right: 18px; justify-content: flex-end; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide, .deck::before { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck" aria-label="Pitch deck IshMed">
+    <header class="deck-nav">
+      <a class="wordmark" href="index.html" aria-label="IshMed, вернуться на сайт">ISH<span>MED</span></a>
+      <div class="deck-meta"><span>Взаимный AI-match и HR-платформа</span><strong id="slideCounter">01 / 15</strong></div>
+    </header>
+
+    <div class="slides" aria-live="polite">
+      <section class="slide is-active" data-index="01" aria-label="Слайд 1">
+        <div class="scene hero-layout">
+          <div>
+            <div class="eyebrow">IshMed · Узбекистан</div>
+            <h1>Подходящая работа. <span class="gradient-text">Подходящий человек.</span></h1>
+            <p class="lead">Взаимный AI-match медиков и клиник — по навыкам, условиям, языку, ценностям и возможностям развития.</p>
+            <div class="tagline">Не свайп по фотографии · профессиональный взаимный выбор</div>
+            <div class="language-picker" id="languagePicker">
+              <button class="language-toggle" id="languageToggle" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Выбор языка">
+                <span class="language-icon" aria-hidden="true">◎</span><span>Выбор языка</span><span class="language-chevron" aria-hidden="true">⌄</span>
+              </button>
+              <div class="language-menu" id="languageMenu" role="menu" aria-label="Выбор языка">
+                <button class="language-option" type="button" role="menuitem" data-lang="ru"><strong>Русский</strong><span>RU</span></button>
+                <button class="language-option" type="button" role="menuitem" data-lang="en"><strong>English</strong><span>EN</span></button>
+                <button class="language-option" type="button" role="menuitem" data-lang="uz"><strong>O‘zbek</strong><span>UZ</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Взаимный match медика и клиники">
+            <div class="signal-card"><div class="signal-label">Профиль медика</div><div class="signal-title">Процедурная медсестра</div><div class="signal-meta">4 года · сертификаты · русский + o‘zbek</div></div>
+            <div class="signal-card"><div class="signal-label">Профиль клиники</div><div class="signal-title">Nova Clinic · Чиланзар</div><div class="signal-meta">Обучение · сильная команда · корпоративная культура</div></div>
+            <div class="signal-card"><div class="score-row"><div><div class="signal-label">Взаимный AI-match</div><div class="signal-title">Подходят друг другу</div></div><div class="score gradient-text">92%</div></div><div class="signal-meta">4 причины совпадения · 1 навык можно освоить</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide soft" data-index="02" aria-label="Слайд 2">
+        <div class="scene">
+          <div class="eyebrow">Проблема</div>
+          <h2>Типовая вакансия почти ничего <span class="gradient-text">не знает о человеке.</span></h2>
+          <div class="grid grid-4">
+            <article class="card"><div class="card-index">01</div><h3>Только должность</h3><p>Название роли не показывает реальные процедуры, навыки и уровень самостоятельности.</p></article>
+            <article class="card"><div class="card-index">02</div><h3>Язык не виден</h3><p>Клиника не знает, говорит ли специалист на русском, узбекском или обоих языках.</p></article>
+            <article class="card"><div class="card-index">03</div><h3>Документы отдельно</h3><p>Сертификаты, допуски и обучение приходится уточнять вручную.</p></article>
+            <article class="card"><div class="card-index">04</div><h3>Человек не видит клинику</h3><p>Из объявления непонятны команда, ценности, обучение и реальные условия работы.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-index="03" aria-label="Слайд 3">
+        <div class="scene">
+          <div class="eyebrow">Выбор медика</div>
+          <h2>Медик выбирает <span class="gradient-text">не только вакансию.</span></h2>
+          <div class="grid grid-4">
+            <article class="card"><div class="card-index">КОМАНДА</div><h3>С кем я буду работать?</h3><p>Структура, руководители, наставники и атмосфера внутри команды.</p></article>
+            <article class="card"><div class="card-index">КУЛЬТУРА</div><h3>Нам по пути?</h3><p>Ценности, стиль общения, корпоративные события и отношение к сотрудникам.</p></article>
+            <article class="card"><div class="card-index">РАЗВИТИЕ</div><h3>Чему я научусь?</h3><p>Курсы, оборудование, клинические протоколы и повышение квалификации.</p></article>
+            <article class="card"><div class="card-index">УСЛОВИЯ</div><h3>Подходит ли мне?</h3><p>График, район, зарплата, льготы и понятный путь адаптации.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide soft" data-index="04" aria-label="Слайд 4">
+        <div class="scene split">
+          <div><div class="eyebrow">Профиль медика</div><h2>Не резюме. <span class="gradient-text">Живой профессиональный профиль.</span></h2><p class="lead">Кандидат рассказывает о себе голосом или текстом, загружает документы и постепенно делает рекомендации точнее.</p></div>
+          <div class="checklist">
+            <div class="check"><i>✓</i><span>Специальность, опыт и практические навыки</span></div>
+            <div class="check"><i>✓</i><span>Русский, узбекский и другие языки</span></div>
+            <div class="check"><i>✓</i><span>Сертификаты, дипломы и допуски</span></div>
+            <div class="check"><i>✓</i><span>График, район, зарплата и цели развития</span></div>
+            <div class="check"><i>✓</i><span>Контакт скрыт до взаимного интереса</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide dark" data-index="05" aria-label="Слайд 5">
+        <div class="scene">
+          <div class="eyebrow">Профиль клиники</div>
+          <h2>Клиника — это больше, чем <span class="gradient-text">список вакансий.</span></h2>
+          <div class="grid grid-4">
+            <article class="card dark-card"><div class="card-index">КОМПАНИЯ</div><h3>Структура и культура</h3><p>Филиалы, команды, руководители, ценности, льготы и корпоративная жизнь.</p></article>
+            <article class="card dark-card"><div class="card-index">ЗНАНИЯ</div><h3>База знаний</h3><p>Протоколы, правила, обязательные знания, инструкции и работа с МИС.</p></article>
+            <article class="card dark-card"><div class="card-index">РАБОТА</div><h3>Вакансии и резерв</h3><p>Открытые роли, будущие потребности и собственный кадровый резерв.</p></article>
+            <article class="card dark-card"><div class="card-index">РОСТ</div><h3>Онбординг и обучение</h3><p>Курсы, тесты, наставники и понятные требования к готовности сотрудника.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-index="06" aria-label="Слайд 6">
+        <div class="scene">
+          <div class="eyebrow">Умный match</div>
+          <h2>Один match — <span class="gradient-text">четыре слоя соответствия.</span></h2>
+          <div class="grid grid-4">
+            <article class="card"><div class="card-index">01 · HARD</div><h3>Обязательные условия</h3><p>Роль, язык, документы, график, география и обязательные знания.</p></article>
+            <article class="card"><div class="card-index">02 · SKILLS</div><h3>Профессиональный уровень</h3><p>Опыт, процедуры, оборудование, навыки и самостоятельность.</p></article>
+            <article class="card"><div class="card-index">03 · OFFER</div><h3>Условия работы</h3><p>Зарплата, сменность, район, льготы и возможности обучения.</p></article>
+            <article class="card"><div class="card-index">04 · CULTURE</div><h3>Рабочая среда</h3><p>Ценности, стиль команды, ожидания и профессиональное развитие.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide soft" data-index="07" aria-label="Слайд 7">
+        <div class="scene split">
+          <div><div class="eyebrow">Объяснимый AI</div><h2>Не магический процент. <span class="gradient-text">Понятное решение.</span></h2><p class="lead">AI показывает факты, пробелы и возможный путь обучения. Финальное решение всегда принимает человек.</p></div>
+          <div class="onboarding-board" aria-label="Объяснение результата match">
+            <div class="board-head"><strong>Почему подходит</strong><span class="pill">4 совпадения</span></div>
+            <div class="track-row"><span class="track-day">✓</span><span class="track-title">4 года релевантного опыта</span><span class="track-state">Совпало</span></div>
+            <div class="track-row"><span class="track-day">✓</span><span class="track-title">Русский и узбекский языки</span><span class="track-state">Совпало</span></div>
+            <div class="track-row"><span class="track-day">?</span><span class="track-title">Сертификат требует подтверждения</span><span class="track-state">Уточнить</span></div>
+            <div class="track-row"><span class="track-day">↗</span><span class="track-title">Внутренний протокол клиники</span><span class="track-state">Обучить</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-index="08" aria-label="Слайд 8">
+        <div class="scene">
+          <div class="eyebrow">Первый пилот</div>
+          <h2>От двух профилей — к <span class="gradient-text">взаимному контакту.</span></h2>
+          <div class="flow" aria-label="Путь пилотного продукта">
+            <article class="flow-step"><span>01</span><strong>Профиль медика</strong><p>Навыки, языки, условия и документы.</p></article>
+            <article class="flow-step"><span>02</span><strong>Профиль клиники</strong><p>Ценности, знания, роли и условия.</p></article>
+            <article class="flow-step"><span>03</span><strong>AI match</strong><p>Причины совпадения и пробелы.</p></article>
+            <article class="flow-step"><span>04</span><strong>Приглашение</strong><p>Клиника показывает взаимный интерес.</p></article>
+            <article class="flow-step"><span>05</span><strong>Выбор медика</strong><p>Человек изучает клинику и предложение.</p></article>
+            <article class="flow-step"><span>06</span><strong>Контакт</strong><p>Открывается только после согласия сторон.</p></article>
+          </div>
+          <p class="lead">После найма профессиональный профиль становится основой персонального онбординга.</p>
+        </div>
+      </section>
+
+      <section class="slide soft" data-index="09" aria-label="Слайд 9">
+        <div class="scene">
+          <div class="eyebrow">Техническая основа</div>
+          <h2>Мы начали <span class="gradient-text">с данных и поиска,</span> а не со слайдов.</h2>
+          <div class="metrics">
+            <div class="metric"><strong class="gradient-text">3 595</strong><span>нормализованных медицинских вакансий в рабочем каталоге</span></div>
+            <div class="metric"><strong>773</strong><span>организации представлены в исходном наборе данных</span></div>
+            <div class="metric"><strong>100%</strong><span>вакансий получили embeddings для гибридного поиска</span></div>
+          </div>
+          <p class="lead">Каталог запускает пилот. Долгосрочная ценность — два развивающихся профиля и история match → найм → обучение → результат.</p>
+        </div>
+      </section>
+
+      <section class="slide" data-index="10" aria-label="Слайд 10">
+        <div class="scene split">
+          <div><div class="eyebrow">После найма</div><h2>Пробелы match превращаются <span class="gradient-text">в план онбординга.</span></h2><p class="lead">IshMed уже знает сильные стороны сотрудника и требования клиники — поэтому адаптация начинается не с чистого листа.</p></div>
+          <div class="onboarding-board" aria-label="Пример onboarding-трека">
+            <div class="board-head"><strong>Медсестра · 30 дней</strong><span class="pill">Трек назначен</span></div>
+            <div class="track-row"><span class="track-day">ДЕНЬ 01</span><span class="track-title">Ценности и правила клиники</span><span class="track-state">Готово</span></div>
+            <div class="track-row"><span class="track-day">ДЕНЬ 03</span><span class="track-title">Инфекционная безопасность</span><span class="track-state">Тест</span></div>
+            <div class="track-row"><span class="track-day">ДЕНЬ 07</span><span class="track-title">Работа с МИС и оборудованием</span><span class="track-state">Наставник</span></div>
+            <div class="track-row"><span class="track-day">ДЕНЬ 30</span><span class="track-title">Оценка готовности</span><span class="track-state">Контроль</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide dark" data-index="11" aria-label="Слайд 11">
+        <div class="scene">
+          <div class="eyebrow">Один профиль</div>
+          <h2>Кандидат становится сотрудником. <span class="gradient-text">Профиль продолжает жить.</span></h2>
+          <div class="flywheel">
+            <div class="flywheel-node"><span>01</span><strong>Кандидат</strong></div>
+            <div class="flywheel-node"><span>02</span><strong>Взаимный match</strong></div>
+            <div class="flywheel-node"><span>03</span><strong>Онбординг</strong></div>
+            <div class="flywheel-node"><span>04</span><strong>Обучение и квалификация</strong></div>
+            <div class="flywheel-node"><span>05</span><strong>Развитие и кадровый резерв</strong></div>
+          </div>
+          <p class="lead">Клинике не нужно повторно собирать данные о человеке в каждой новой системе.</p>
+        </div>
+      </section>
+
+      <section class="slide" data-index="12" aria-label="Слайд 12">
+        <div class="scene">
+          <div class="eyebrow">Use yours or use ours</div>
+          <h2>Подключаем существующее. <span class="gradient-text">Даём своё, если его нет.</span></h2>
+          <div class="integration-map">
+            <div class="integration-stack"><div class="integration-card">Job boards · Telegram · ATS</div><div class="integration-card">1С · Bitrix24 · кадровые системы</div><div class="integration-card">МИС · LMS · база знаний</div></div>
+            <div class="integration-core"><div><strong>ISH<span class="gradient-text">MED</span></strong><span>Единый профиль<br>AI-инструменты<br>Жизненный цикл сотрудника</span></div></div>
+            <div class="integration-stack"><div class="integration-card">Структура компании и сотрудники</div><div class="integration-card">Вакансии, резерв и онбординг</div><div class="integration-card">Знания, обучение и QR-обратная связь</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide dark" data-index="13" aria-label="Слайд 13">
+        <div class="scene">
+          <div class="eyebrow">Не обёртка вокруг ChatGPT</div>
+          <h2>AI не просто отвечает. <span class="gradient-text">Он работает с компанией.</span></h2>
+          <div class="grid grid-3">
+            <article class="card dark-card"><div class="card-index">ДАННЫЕ</div><h3>Реальные объекты</h3><p>Компании, сотрудники, кандидаты, вакансии, знания, документы и курсы.</p></article>
+            <article class="card dark-card"><div class="card-index">TOOLS</div><h3>Действия через инструменты</h3><p>AI читает системы, готовит решение и после подтверждения запускает процесс.</p></article>
+            <article class="card dark-card"><div class="card-index">CONTEXT</div><h3>Память компании</h3><p>Правила, роли, разрешения, история действий и накопленные результаты.</p></article>
+          </div>
+          <p class="lead">Модель можно заменить. Данные, интеграции, процессы и контекст компании остаются.</p>
+        </div>
+      </section>
+
+      <section class="slide soft" data-index="14" aria-label="Слайд 14">
+        <div class="scene">
+          <div class="eyebrow">Бизнес-модель</div>
+          <h2>Медики создают рынок. <span class="gradient-text">Клиники платят за результат.</span></h2>
+          <div class="grid grid-3">
+            <article class="card"><div class="card-index">ДЛЯ МЕДИКА</div><h3>Всегда бесплатно</h3><p>Профессиональный профиль, конфиденциальный поиск и рекомендации по развитию.</p></article>
+            <article class="card"><div class="card-index">ДЛЯ КЛИНИКИ</div><h3>HR-подписка</h3><p>Найм, профили, кадровый резерв, онбординг и базовые AI-инструменты.</p></article>
+            <article class="card"><div class="card-index">ENTERPRISE</div><h3>Сети и интеграции</h3><p>Филиалы, единые стандарты, корпоративные модули и интеграции.</p></article>
+          </div>
+          <p class="lead">Первый шаг — бесплатный 30-дневный пилот на 2–5 реальных кадровых потребностях.</p>
+        </div>
+      </section>
+
+      <section class="slide dark" data-index="15" aria-label="Слайд 15">
+        <div class="scene">
+          <div class="eyebrow">Следующий шаг</div>
+          <h1>Сегодня — найти свою клинику.<br><span class="gradient-text">Завтра — построить сильную команду.</span></h1>
+          <div class="final-ask">
+            <p class="lead">Не просто найти сотрудника. Найти человека, которому подходит эта клиника, помочь ему адаптироваться и дать возможность развиваться внутри компании.</p>
+            <div class="ask-badge"><strong>3 клиники</strong><span>для первого 30-дневного пилота</span></div>
+          </div>
+          <div class="tagline">IshMed · Медик выбирает клинику. Клиника выбирает человека.</div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="deck-controls">
+      <div class="control-hint">← → для навигации · пробел — следующий слайд</div>
+      <div class="control-buttons">
+        <button class="control-button" id="prevSlide" type="button" aria-label="Предыдущий слайд">←</button>
+        <button class="control-button" id="nextSlide" type="button" aria-label="Следующий слайд">→</button>
+      </div>
+    </footer>
+  </main>
+
+  <script src="pitch-i18n.js"></script>
+  <script src="pitch-i18n-v2.js"></script>
+  <script>
+    (() => {
+      const deck = document.getElementById('deck');
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const counter = document.getElementById('slideCounter');
+      const previous = document.getElementById('prevSlide');
+      const next = document.getElementById('nextSlide');
+      const languagePicker = document.getElementById('languagePicker');
+      const languageToggle = document.getElementById('languageToggle');
+      const languageOptions = Array.from(document.querySelectorAll('.language-option'));
+      const dictionaries = window.PITCH_TRANSLATIONS || {};
+      const total = slides.length;
+      let current = Math.max(0, Math.min(total - 1, Number(location.hash.replace('#', '')) - 1 || 0));
+      let touchStartX = null;
+      let language = (() => {
+        try { return localStorage.getItem('ishmed-pitch-language') || 'ru'; }
+        catch (_) { return 'ru'; }
+      })();
+
+      const textNodes = [];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          const parent = node.parentElement;
+          if (!parent || ['SCRIPT', 'STYLE'].includes(parent.tagName) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      while (walker.nextNode()) textNodes.push({ node: walker.currentNode, source: walker.currentNode.nodeValue });
+      const translatedAttributes = Array.from(document.querySelectorAll('[aria-label]')).map(element => ({
+        element,
+        source: element.getAttribute('aria-label')
+      }));
+
+      const translated = (source, lang) => {
+        if (lang === 'ru') return source;
+        const clean = source.trim();
+        const value = dictionaries[lang] && dictionaries[lang][clean];
+        return value ? source.replace(clean, value) : source;
+      };
+
+      const applyLanguage = (lang) => {
+        language = ['ru', 'en', 'uz'].includes(lang) ? lang : 'ru';
+        textNodes.forEach(({ node, source }) => { node.nodeValue = translated(source, language); });
+        translatedAttributes.forEach(({ element, source }) => {
+          const slideMatch = source.match(/^Слайд (\d+)$/);
+          if (language === 'en' && slideMatch) element.setAttribute('aria-label', `Slide ${slideMatch[1]}`);
+          else if (language === 'uz' && slideMatch) element.setAttribute('aria-label', `${slideMatch[1]}-slayd`);
+          else element.setAttribute('aria-label', translated(source, language));
+        });
+        document.documentElement.lang = language;
+        document.querySelector('meta[name="description"]').content = language === 'en'
+          ? 'IshMed — AI HR copilot for clinics. Project pitch deck.'
+          : language === 'uz'
+            ? 'IshMed — klinikalar uchun AI HR-yordamchi. Loyiha taqdimoti.'
+            : 'IshMed — AI HR-помощник для клиник. Pitch deck проекта.';
+        languageOptions.forEach(option => {
+          const selected = option.dataset.lang === language;
+          option.classList.toggle('is-selected', selected);
+          option.setAttribute('aria-current', selected ? 'true' : 'false');
+        });
+        try { localStorage.setItem('ishmed-pitch-language', language); } catch (_) {}
+        render(current, false);
+      };
+
+      const closeLanguageMenu = () => {
+        languagePicker.classList.remove('is-open');
+        languageToggle.setAttribute('aria-expanded', 'false');
+      };
+
+      languageToggle.addEventListener('click', () => {
+        const open = !languagePicker.classList.contains('is-open');
+        languagePicker.classList.toggle('is-open', open);
+        languageToggle.setAttribute('aria-expanded', String(open));
+      });
+
+      languageOptions.forEach(option => option.addEventListener('click', () => {
+        applyLanguage(option.dataset.lang);
+        closeLanguageMenu();
+      }));
+
+      document.addEventListener('click', event => {
+        if (!languagePicker.contains(event.target)) closeLanguageMenu();
+      });
+
+      const render = (index, updateHash = true) => {
+        current = Math.max(0, Math.min(total - 1, index));
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle('is-active', slideIndex === current);
+          slide.classList.toggle('is-before', slideIndex < current);
+          slide.setAttribute('aria-hidden', slideIndex === current ? 'false' : 'true');
+          if (slideIndex === current) slide.scrollTop = 0;
+        });
+        const active = slides[current];
+        counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+        previous.disabled = current === 0;
+        next.disabled = current === total - 1;
+        deck.style.setProperty('--progress', `${((current + 1) / total) * 100}%`);
+        deck.classList.toggle('dark-active', active.classList.contains('dark'));
+        const titleWord = language === 'uz' ? 'Taqdimot' : 'Pitch';
+        document.title = `IshMed — ${titleWord} ${current + 1}/${total}`;
+        if (updateHash) history.replaceState(null, '', `#${current + 1}`);
+      };
+
+      previous.addEventListener('click', () => render(current - 1));
+      next.addEventListener('click', () => render(current + 1));
+
+      document.addEventListener('keydown', (event) => {
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+          event.preventDefault();
+          render(current + 1);
+        }
+        if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+          event.preventDefault();
+          render(current - 1);
+        }
+        if (event.key === 'Home') render(0);
+        if (event.key === 'End') render(total - 1);
+        if (event.key === 'Escape' && languagePicker.classList.contains('is-open')) {
+          closeLanguageMenu();
+          languageToggle.focus();
+        } else if (event.key === 'Escape') {
+          location.href = 'index.html';
+        }
+      });
+
+      deck.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+
+      deck.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const distance = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(distance) > 55) render(current + (distance < 0 ? 1 : -1));
+        touchStartX = null;
+      }, { passive: true });
+
+      window.addEventListener('hashchange', () => {
+        const requested = Number(location.hash.replace('#', '')) - 1;
+        if (Number.isFinite(requested)) render(requested, false);
+      });
+
+      applyLanguage(language);
+    })();
+  </script>
+</body>
+</html>

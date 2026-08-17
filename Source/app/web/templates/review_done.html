@@ -1,0 +1,25 @@
+{% extends "review_base.html" %}
+{% block title %}Спасибо — IshMed{% endblock %}
+
+{% block content %}
+  <div class="card done">
+    <div class="ico" aria-hidden="true">✓</div>
+    {% if already %}
+      <h1 style="margin-top:10px">Отзыв уже принят</h1>
+      <p class="where" style="margin-bottom:0">
+        С этого устройства отзыв недавно уже оставляли.
+        {% if target %}<br>{{ target.clinic_name }}{% endif %}
+      </p>
+    {% else %}
+      <h1 style="margin-top:10px">Спасибо!</h1>
+      <p class="where" style="margin-bottom:0">
+        Ваш отзыв передан клинике.
+        {% if target %}<br>{{ target.clinic_name }}{% endif %}
+      </p>
+    {% endif %}
+  </div>
+  <p class="note">
+    Отзыв видит только клиника. Если вы просили перезвонить, с вами свяжутся
+    по оставленному номеру.
+  </p>
+{% endblock %}

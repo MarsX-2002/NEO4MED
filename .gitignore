@@ -1,0 +1,28 @@
+# Секреты — никогда в репозиторий
+.env
+**/.env
+!**/.env.example
+Source/deploy/.env.server
+
+# Виртуальные окружения и кэши
+.venv/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Локальные дампы базы: единственная копия вне сервера, но в git ей не место
+Source/deploy/backups/
+
+# Выгрузка с ishapi.mehnat.uz: 2528 телефонов и 1019 email реальных
+# организаций. Каталог из продукта убран (миграция 023), в git файлу не место.
+medical_vacancies_uzbekistan.csv
+# Материалы основателя: бренд и лендинг, заливает сам
+project/05_brand/assets/
+site/
+# Системный мусор macOS
+.DS_Store
+**/.DS_Store
+
+# Логи
+*.log

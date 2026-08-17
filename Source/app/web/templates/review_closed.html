@@ -1,0 +1,15 @@
+{% extends "review_base.html" %}
+{% block title %}Опрос недоступен — IshMed{% endblock %}
+
+{% block content %}
+  <div class="card done">
+    <div class="ico" aria-hidden="true">·</div>
+    <h1 style="margin-top:10px">Опрос недоступен</h1>
+    {# Пациенту не нужен код ошибки, ему нужно понять, что делать дальше. #}
+    <p class="where" style="margin-bottom:0">{{ reason }}</p>
+  </div>
+  <p class="note">
+    Если вы хотели оставить отзыв о приёме, обратитесь на стойку регистрации —
+    там подскажут актуальный код.
+  </p>
+{% endblock %}

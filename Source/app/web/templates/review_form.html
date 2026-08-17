@@ -1,0 +1,71 @@
+{% extends "review_base.html" %}
+
+{% block content %}
+  <h1>Как прошёл приём?</h1>
+  <p class="where">
+    {{ target.title }}{% if target.subtitle %} · {{ target.subtitle }}{% endif %}
+    <br>{{ target.clinic_name }}
+  </p>
+
+  <form method="post" class="card" style="display:grid; gap:22px">
+    {# Ловушка для ботов: человек этого поля не видит. #}
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <fieldset style="border:0; padding:0; margin:0">
+      <p class="q">Оцените от 1 до 5</p>
+      <div class="stars">
+        {% for n in [1, 2, 3, 4, 5] %}
+          <input type="radio" id="r{{ n }}" name="rating" value="{{ n }}" required>
+          <label for="r{{ n }}">{{ n }}</label>
+        {% endfor %}
+      </div>
+      <p class="hint">1 — плохо, 5 — отлично</p>
+    </fieldset>
+
+    <fieldset style="border:0; padding:0; margin:0">
+      <p class="q">Что понравилось?</p>
+      <div class="chips">
+        {% for t in tags %}
+          <input type="checkbox" id="g-{{ t.code }}" name="good" value="{{ t.code }}">
+          <label for="g-{{ t.code }}">{{ t.name_ru }}</label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <fieldset style="border:0; padding:0; margin:0">
+      <p class="q">Что стоит улучшить?</p>
+      <div class="chips">
+        {% for t in tags %}
+          <input type="checkbox" id="b-{{ t.code }}" name="bad" value="{{ t.code }}">
+          <label for="b-{{ t.code }}">{{ t.name_ru }}</label>
+        {% endfor %}
+      </div>
+    </fieldset>
+
+    <div>
+      <label class="q" for="comment">Хотите добавить словами?</label>
+      <textarea id="comment" name="comment" rows="3" maxlength="{{ max_comment }}"
+                placeholder="Необязательно"></textarea>
+    </div>
+
+    <div style="display:grid; gap:9px">
+      <label class="cb">
+        <input type="checkbox" name="callback" value="1">
+        Хочу, чтобы со мной связались
+      </label>
+      <input type="tel" name="phone" placeholder="Телефон, если ждёте звонка"
+             autocomplete="tel" inputmode="tel">
+    </div>
+
+    <button type="submit">Отправить</button>
+  </form>
+
+  {# Прямая и честная формулировка: пациент должен понимать, что мы спрашиваем
+     только о сервисе и что отзыв анонимен, если он сам не оставил телефон. #}
+  <p class="note">
+    Отзыв анонимный. Мы спрашиваем только о том, как вас обслужили, и никогда
+    о здоровье, диагнозе или лечении. Телефон нужен лишь если вы сами хотите,
+    чтобы клиника перезвонила. Отзыв видит только эта клиника — публично он
+    нигде не появится.
+  </p>
+{% endblock %}

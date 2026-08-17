@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* Дизайн-система кабинета: светлая, плотная, enterprise.
+
+   Отличие от первой версии — плотность. Воздушный интерфейс хорош на трёх
+   карточках, но у клиники будет сто подразделений и тысячи отзывов, и тогда
+   каждая лишняя строка отступа стоит одной строки данных на экране. Поэтому:
+   меньше радиусы, компактнее строки, настоящие таблицы вместо карточек.
+
+   Что осталось: светлая тёплая нейтраль, разделение оттенком вместо теней,
+   один акцент, видимый фокус. Сетка на 4px. Контраст не ниже 4.5:1. */
+
+@theme {
+  --color-surface: #f7f8f7;
+  --color-surface-card: #ffffff;
+  --color-surface-sunken: #f1f2f0;
+  --color-surface-container: #eceeeb;
+  --color-surface-head: #fafbfa;
+
+  --color-ink: #14161a;
+  --color-ink-muted: #5a5e66;
+  --color-ink-faint: #868b93;
+
+  --color-line: #e2e4e1;
+  --color-line-strong: #cfd2ce;
+
+  --color-accent: #0b7a64;
+  --color-accent-hover: #0a6a57;
+  --color-accent-soft: #dcf1ea;
+  --color-accent-ink: #05372d;
+
+  --color-warn: #8a5a00;
+  --color-warn-soft: #fdf3de;
+  --color-danger: #a3262c;
+  --color-danger-soft: #fdeceb;
+  --color-info-soft: #e9eefb;
+
+  /* Радиусы уменьшены: плотный интерфейс с крупными скруглениями выглядит
+     мягче, но теряет ощущение таблицы и сетки. */
+  --radius-card: 12px;
+  --radius-panel: 16px;
+  --radius-ctl: 8px;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@utility card {
+  background: var(--color-surface-card);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+@utility spring {
+  transition-timing-function: cubic-bezier(.2, .9, .25, 1);
+  transition-duration: 160ms;
+}
+
+/* Таблица данных. Тонкие линии вместо зебры: полосы шумят при большом числе
+   столбцов, а линия отделяет ровно настолько, чтобы взгляд не терял строку. */
+@utility dt {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13.5px;
+}
